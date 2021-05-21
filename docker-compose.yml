@@ -1,15 +1,24 @@
 version: '3'
+
 services:
-  postgresql:
-    image: postgres:latest
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
+  api:
+    container_name: "jibber-jabber-posts"
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - 5433:5432
-    environment:
-      - POSTGRES_DB=jibber_jabber_posts
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=root
+      - 8000:8080
+    env_file:
+      - posts.env
+  db:
+    container_name: jibber_jabber_posts_db
+    image: postgres:12
+    ports:
+      - 5432:5432
+    env_file:
+      - database.env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 volumes:
-  postgres-data:
-    external: false
+  pgdata:
+    external: true
