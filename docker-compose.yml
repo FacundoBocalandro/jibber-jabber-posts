@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  api:
+  jibber-jabber-posts:
     container_name: "jibber-jabber-posts"
     build:
       context: .
@@ -10,7 +10,7 @@ services:
       - 8000:8080
     env_file:
       - posts.env
-  db:
+  jibber_jabber_posts_db:
     container_name: jibber_jabber_posts_db
     image: postgres:12
     ports:
@@ -18,7 +18,7 @@ services:
     env_file:
       - database.env
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - jjposts:/var/lib/postgresql/data
 volumes:
-  pgdata:
+  jjposts:
     external: true
