@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 8000:8080
+      - 8082:8080
     env_file:
       - posts.env
   jibber_jabber_posts_db:
