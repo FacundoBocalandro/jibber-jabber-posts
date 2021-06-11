@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -46,5 +47,11 @@ public class PostsService {
         post.like(1L);
         repository.save(post);
         return ResponseEntity.ok().build();
+    }
+
+    public List<Post> getFollowingUsersPosts(String token) {
+        // List<Long> userIds = AuthenticationService.getFollowingUsers(token);
+        List<Long> mocked = new ArrayList<>();
+        return repository.findAllByUserIdIn(mocked);
     }
 }

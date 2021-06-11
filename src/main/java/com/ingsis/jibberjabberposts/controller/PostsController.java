@@ -40,4 +40,9 @@ public class PostsController {
     public ResponseEntity<?> likePost(@CookieValue(value = "token") String token, @PathVariable long id) throws NotFoundException {
         return service.likePost(token, id);
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/get-posts/following")
+    public List<Post> getFollowingUsersPosts(@CookieValue(value = "token") String token) {
+        return service.getFollowingUsersPosts(token);
+    }
 }
