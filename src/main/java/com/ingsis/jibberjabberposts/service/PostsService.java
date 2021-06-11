@@ -16,8 +16,9 @@ public class PostsService {
     @Autowired
     private PostsRepository repository;
 
-    public ResponseEntity<?> createPost(PostCreationDTO postCreationDTO) {
+    public ResponseEntity<?> createPost(PostCreationDTO postCreationDTO, String token) {
         Post post = new Post(postCreationDTO.getText());
+        // Long userId = AuthenticationService.getUserId(token);
         Post saved = repository.save(post);
         return ResponseEntity.ok(saved);
     }
@@ -26,14 +27,24 @@ public class PostsService {
         return repository.findAll();
     }
 
-    public void updatePost(PostCreationDTO post, long id) throws NotFoundException {
+    public ResponseEntity<?> updatePost(PostCreationDTO post, long id) throws NotFoundException {
         Post oldPost = repository.findById(id).orElseThrow(() -> new NotFoundException("Post not found"));
         oldPost.setText(post.getText());
 
-        repository.save(oldPost);
+        Post saved = repository.save(oldPost);
+        return ResponseEntity.ok(saved);
     }
 
-    public void deletePost(long id) {
+    public ResponseEntity<?> deletePost(long id) {
         repository.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    public ResponseEntity<?> likePost(String token, long id) throws NotFoundException {
+        Post post = repository.findById(id).orElseThrow(() -> new NotFoundException("Post not found"));
+        // Long userId = AuthenticationService.getUserId(token);
+        post.like(1L);
+        repository.save(post);
+        return ResponseEntity.ok().build();
     }
 }
