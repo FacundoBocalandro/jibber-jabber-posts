@@ -16,8 +16,8 @@ public class PostsController {
     private PostsService service;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createPost(@RequestBody PostCreationDTO post, @CookieValue(value = "token") String token) {
-        return service.createPost(post, token);
+    public ResponseEntity<?> createPost(@RequestBody PostCreationDTO post) {
+        return service.createPost(post);
     }
 
     @GetMapping
@@ -36,7 +36,12 @@ public class PostsController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/like/{id}")
-    public ResponseEntity<?> likePost(@CookieValue(value = "token") String token, @PathVariable long id) throws NotFoundException {
-        return service.likePost(token, id);
+    public ResponseEntity<?> likePost(@PathVariable long id) throws NotFoundException {
+        return service.likePost(id);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/dislike/{id}")
+    public ResponseEntity<?> dislike(@PathVariable long id) throws NotFoundException {
+        return service.dislikePost(id);
     }
 }

@@ -1,6 +1,7 @@
 package com.ingsis.jibberjabberposts.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -14,13 +15,20 @@ public class Post {
 
     private Long userId;
 
+    private String username;
+
+    private LocalDateTime timestamp;
+
     @ElementCollection
     private Set<Long> likes;
 
     public Post(){}
 
-    public Post(String text) {
+    public Post(String text, Long userId, String username, LocalDateTime timestamp) {
         this.text = text;
+        this.userId = userId;
+        this.username = username;
+        this.timestamp = timestamp;
     }
 
     public void setId(Long id) {
@@ -53,11 +61,19 @@ public class Post {
         return likes;
     }
 
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
     public void like(Long userId) {
         likes.add(userId);
     }
 
     public void dislike(Long userId) {
         likes.remove(userId);
+    }
+
+    public String getUsername() {
+        return username;
     }
 }
