@@ -64,4 +64,8 @@ public class PostsService {
         repository.save(post);
         return ResponseEntity.ok().build();
     }
+
+    public List<Post> getUserPosts(long userId) {
+        return repository.findAllByUserId(userId);
+    }
 }

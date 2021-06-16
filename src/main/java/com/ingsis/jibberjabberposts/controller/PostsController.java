@@ -44,4 +44,9 @@ public class PostsController {
     public ResponseEntity<?> dislike(@PathVariable long id) throws NotFoundException {
         return service.dislikePost(id);
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/user-posts/{id}")
+    public List<Post> getUserPosts(@PathVariable long id) {
+        return service.getUserPosts(id);
+    }
 }
