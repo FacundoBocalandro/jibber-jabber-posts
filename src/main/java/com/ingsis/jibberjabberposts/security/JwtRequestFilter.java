@@ -37,7 +37,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             }
             //send request to auth service
             RestTemplate restTemplate = new RestTemplate();
-            String authUrl = "http://localhost:8081/user-info";
+            String authUrl = "http://jibber-jabber-auth:8080/user-info";
             HttpHeaders headers = new HttpHeaders();
             headers.add("Cookie", "token=" + jwt);
             HttpEntity<String> httpEntity = new HttpEntity<>(headers);
