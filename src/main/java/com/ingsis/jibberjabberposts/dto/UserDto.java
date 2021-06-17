@@ -1,11 +1,14 @@
 package com.ingsis.jibberjabberposts.dto;
 
+import java.util.List;
+
 public class UserDto {
     private Long id;
     private String username;
     private String firstName;
     private String lastName;
     private String role;
+    private List<Long> following;
 
     public UserDto(){}
 
@@ -27,5 +30,9 @@ public class UserDto {
 
     public String getRole() {
         return role;
+    }
+
+    public List<Long> getFollowing() {
+        return following;
     }
 }

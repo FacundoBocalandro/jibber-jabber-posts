@@ -29,6 +29,11 @@ public class PostsService {
         return ((UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
     }
 
+    private List<Long> getFollowingIds() {
+        UserDto userDto = ((UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        return userDto.getFollowing();
+    }
+
     public ResponseEntity<?> createPost(PostCreationDTO postCreationDTO) {
         Post post = new Post(postCreationDTO.getText(), getUserId(), getUsername(), LocalDateTime.now());
         Post saved = repository.save(post);
@@ -67,5 +72,12 @@ public class PostsService {
 
     public List<Post> getUserPosts(long userId) {
         return repository.findAllByUserId(userId);
+    }
+
+    public List<Post> getFollowingPosts() {
+        List<Long> userIds = getFollowingIds();
+        // Add the logged in user
+        userIds.add(getUserId());
+        return repository.findAllByUserIdIn(userIds);
     }
 }

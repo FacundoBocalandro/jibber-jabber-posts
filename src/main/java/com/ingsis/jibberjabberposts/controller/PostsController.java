@@ -49,4 +49,9 @@ public class PostsController {
     public List<Post> getUserPosts(@PathVariable long id) {
         return service.getUserPosts(id);
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/following")
+    public List<Post> getFollowingPosts() {
+        return service.getFollowingPosts();
+    }
 }
