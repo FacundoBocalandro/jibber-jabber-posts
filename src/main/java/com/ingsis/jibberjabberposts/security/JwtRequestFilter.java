@@ -1,6 +1,7 @@
 package com.ingsis.jibberjabberposts.security;
 
 import com.ingsis.jibberjabberposts.dto.UserDto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,9 @@ import org.springframework.http.HttpHeaders;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
+    @Value("${auth-server-url}")
+    String authServerUrl;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
@@ -37,7 +41,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             }
             //send request to auth service
             RestTemplate restTemplate = new RestTemplate();
-            String authUrl = "http://localhost:8081/user-info";
+            String authUrl = authServerUrl + "user-info";
             HttpHeaders headers = new HttpHeaders();
             headers.add("Cookie", "token=" + jwt);
             HttpEntity<String> httpEntity = new HttpEntity<>(headers);

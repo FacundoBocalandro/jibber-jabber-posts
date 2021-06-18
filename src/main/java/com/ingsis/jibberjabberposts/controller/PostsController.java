@@ -20,7 +20,7 @@ public class PostsController {
         return service.createPost(post);
     }
 
-    @GetMapping
+    @RequestMapping(method = RequestMethod.GET,value = "/get-all")
     public List<Post> getAllPosts(){
         return service.getAllPosts();
     }
